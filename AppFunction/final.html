@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- import css files -->
+    <link rel="stylesheet" href="../css/leaflet.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- title box-->
+    <div class="title-box">
+      <h1>Explore Bike Share System</h1>
+    </div>
+    <!-- side bar & contents-->
+    <div class="side-bar">
+      <div class="content">
+        <h2 class="subtitle"></h2>
+        <p class="description"></p>
+      </div>
+      <div class="CoordinateBox" style="display:none">
+        <label id="coortext" for="lon">Your Longitude :</label>
+        <br>
+        <input type="number" id="lon" disabled>
+        <br>
+        <br>
+        <label id="coortext" for="lat" >Your Lattitude :</label>
+        <br>
+        <input type="number" id="lat" disabled>
+        <br>
+        <br>
+        <button id="button2" >SEARCH</button>
+        <button id="resetbutton" >RESET</button>
+      </div>
+      <div id="slidecontainer" style="display:none">
+        <h3>FILTER: Trip Count (per year)</h3>
+        <input type="range" min="1" max="15000" value="15000" class="slider" id="myRange">
+        <p>Trip Count < <span id="outputRange"></span></p>
+      </div>
+        <button id="previous" style="display:none"><</button>
+        <button id="next" style="display:none">></button>
+    </div>
+    <!-- Legend -->
+    <div id = "legend1" class = "legend" style="display: none;list-style: none;">
+      <p class="legendC">Trip Count</p>
+      <li class="legend-item">
+        <span id="Count0" class = "point1"></span>
+        <p class="Legend-title">0 - 2000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Count2000" class = "point1"></span>
+        <p class="Legend-title">2000 - 4000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Count4000" class = "point1"></span>
+        <p class="Legend-title">4000 - 6000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Count6000" class = "point1"></span>
+        <p class="Legend-title">6000 - 8000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Count8000" class = "point1"></span>
+        <p class="Legend-title">8000 - 10000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Count10000" class = "point1"></span>
+        <p class="Legend-title">> 10000</p>
+      </li>
+    </div>
+
+    <div id = "legend2" class = "legend" style="display: none;list-style: none;">
+      <p class="legendC">Distance to Septa</p>
+      <li class="legend-item">
+        <span id="Dist3000" class = "point1"></span>
+        <p class="Legend-title">> 3000m</p>
+      </li>
+      <li class="legend-item">
+        <span id="Dist2000" class = "point1"></span>
+        <p class="Legend-title">2000 - 3000m</p>
+      </li>
+      <li class="legend-item">
+        <span id="Dist1500" class = "point1"></span>
+        <p class="Legend-title">1500 - 2000m</p>
+      </li>
+      <li class="legend-item">
+        <span id="Dist1000" class = "point1"></span>
+        <p class="Legend-title">1000 - 1500m</p>
+      </li>
+      <li class="legend-item">
+        <span id="Dist750" class = "point1"></span>
+        <p class="Legend-title">750 - 1000m</p>
+      </li>
+      <li class="legend-item">
+        <span id="Dist0" class = "point1"></span>
+        <p class="Legend-title">0 - 750m</p>
+      </li>
+    </div>
+
+    <div id = "legend3" class = "legend" style="display: none;list-style: none;">
+      <p class="legendC">Income</p>
+      <li class="legend-item">
+        <span id="Income0" class = "square1"></span>
+        <p class="Legend-title"> < $10000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Income10000" class = "square1"></span>
+        <p class="Legend-title">$10000-$25000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Income25000" class = "square1"></span>
+        <p class="Legend-title">$25000-$40000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Income40000" class = "square1"></span>
+        <p class="Legend-title">$40000-$55000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Income55000" class = "square1"></span>
+        <p class="Legend-title">$55000-$80000</p>
+      </li>
+      <li class="legend-item">
+        <span id="Income80000" class = "square1"></span>
+        <p class="Legend-title">> $80000</p>
+      </li>
+    </div>
+
+    <div id = "legend4" class = "legend" style="display: none;list-style: none;">
+      <p class="legendC">Percent of People Commute by Bike</p>
+      <li class="legend-item">
+        <span id="Commute0" class = "square1"></span>
+        <p class="Legend-title">0% - 1%</p>
+      </li>
+      <li class="legend-item">
+        <span id="Commute1" class = "square1"></span>
+        <p class="Legend-title">1% - 2%</p>
+      </li>
+      <li class="legend-item">
+        <span id="Commute2" class = "square1"></span>
+        <p class="Legend-title">2% - 3%</p>
+      </li>
+      <li class="legend-item">
+        <span id="Commute3" class = "square1"></span>
+        <p class="Legend-title">3% - 4%</p>
+      </li>
+      <li class="legend-item">
+        <span id="Commute4" class = "square1"></span>
+        <p class="Legend-title">4% - 5%</p>
+      </li>
+      <li class="legend-item">
+        <span id="Commute5" class = "square1"></span>
+        <p class="Legend-title">> 5%</p>
+      </li>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- End HTML -->
+
+    <!-- Start Javascript Imports -->
+    <script src="../js/leaflet-knn.js"></script>
+    <script src="../js/leaflet-knn.min.js"></script>
+    <script src="../js/jquery-2.2.0.js"></script>
+    <script src="../js/underscore.js"></script>
+    <script src="../js/leaflet.js"></script>
+    <script src="basicApplication.js"></script>
+    <script src="stylingFunctions.js"></script>
+
+    <!-- End Javascript Imports -->
+
+  </body>
+</html>
